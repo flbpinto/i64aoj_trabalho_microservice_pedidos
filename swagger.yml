@@ -1,0 +1,154 @@
+
+swagger: "2.0"
+info:
+  description: Swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger ReST Pedidos
+consumes:
+  - application/json
+produces:
+  - application/json
+ 
+basePath: /api
+ 
+paths:
+  /pedidos:
+    get:
+      operationId: pedidos.read_all
+      tags:
+        - Pedidos
+      summary: Listar Pedidos
+      description: Read Lista de pedidos
+      parameters:
+        - name: pedido
+          in: query
+          type: integer
+          description: Numero do Pedido 
+          required: false
+        - name: name
+          in: query
+          type: string
+          description: Nome do cliente
+          required: false
+      responses:
+        200:
+          description: Successfully read Pedidos list operation
+          schema:
+            type: array
+            items:
+              properties:
+                Pedido:
+                  type: string
+                name:
+                  type: string
+                timestamp:
+                  type: string
+
+    post:
+      operationId: pedidos.create
+      tags:
+        - Pedidos
+      summary: Criar Pedidos
+      description: Criar novos pedidos
+      parameters:
+        - name: pedido
+          in: body
+          description: colocar pedido
+          required: True
+          schema:
+            type: object
+            properties:
+              pedido:
+                type: string
+                description: pedido
+              name:
+                type: string
+                description: First name of person to create
+              produto:
+                type: string
+                description: Last name of person to create
+              quantidade:
+                type: integer
+                description: quantidade
+
+      responses:
+        201:
+          description: Pedidos inserido com sucesso
+
+
+ 
+  /pedidos/{name}:
+    get:
+      operationId: pedidos.read_one
+      tags:
+        - Pedidos
+      summary: Lista de Pedidos
+      description: Lista de Pedidos
+      parameters:
+        - name: name
+          in: path
+          description: Last name of the person to get from the list
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read person from Alunos list operation
+          schema:
+            properties:
+              pedido:
+                type: string
+              nome:
+                type: string
+              timestamp:
+                type: string
+ 
+    put:
+      operationId: pedidos.update
+      tags:
+        - Pedidos
+      summary: Atualizar Pedidos
+      description: Atualiza Pedidos
+      parameters:
+        - name: name
+          in: path
+          description: Atualiza Pediddos
+          type: string
+          required: True
+        - name: person
+          in: body
+          schema:
+            type: object
+            properties:
+              pedido:
+                type: string
+                description: pedido
+              name:
+                type: string
+                description: First name of person to create
+              produto:
+                type: string
+                description: Last name of person to create
+              quantidade:
+                type: integer
+                description: quantidade
+      responses:
+        200:
+          description: Pedidos atualizados com sucesso
+ 
+    delete:
+      operationId: pedidos.delete
+      tags:
+        - Pedidos
+      summary: Deletar Pedidos
+      description: Deleta Pedidos
+      parameters:
+        - name: name
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: SPedidos deletados com sucesso
+
+
+
