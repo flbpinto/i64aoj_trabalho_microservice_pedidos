@@ -87,7 +87,7 @@ paths:
       parameters:
         - name: name
           in: path
-          description: Last name of the person to get from the list
+          description: Numero do Pedido
           type: string
           required: True
       responses:
@@ -101,7 +101,14 @@ paths:
                 type: string
               timestamp:
                 type: string
- 
+              produto:
+                type: string
+                description: Last name of person to create
+              quantidade:
+                type: integer
+                description: quantidade
+
+
     put:
       operationId: pedidos.update
       tags:
@@ -111,26 +118,20 @@ paths:
       parameters:
         - name: name
           in: path
-          description: Atualiza Pediddos
+          description: Numero do Pedido
           type: string
           required: True
-        - name: person
+        - name: cliente
           in: body
           schema:
             type: object
             properties:
-              pedido:
-                type: string
-                description: pedido
               name:
                 type: string
-                description: First name of person to create
-              produto:
-                type: string
-                description: Last name of person to create
-              quantidade:
-                type: integer
-                description: quantidade
+                description: Nome
+
+
+
       responses:
         200:
           description: Pedidos atualizados com sucesso

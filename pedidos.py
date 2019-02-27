@@ -11,28 +11,34 @@ PEDIDOS = {
         "pedido": "1",
         "name": "Fernando",
         "timestamp": get_timestamp(),
+        "produto": "Produto",
+        "quantidade": "1",
     },
     "2": {
         "pedido": "2",
         "name": "Ricardo",
         "timestamp": get_timestamp(),
+        "produto": "Produto",
+        "quantidade": "1",
     },
     "3": {
         "pedido": "3",
         "name": "Claudia",
         "timestamp": get_timestamp(),
+        "produto": "Produto",
+        "quantidade": "1",
     },
 }
 
 def read_all():
     dict_pedidos = [PEDIDOS[key] for key in sorted(PEDIDOS.keys())]
-    alunos = jsonify(dict_pedidos)
+    pedidos = jsonify(dict_pedidos)
     qtd = len(dict_pedidos)
     content_range = "pedidos 0-"+str(qtd)+"/"+str(qtd)
     # Configura headers
-    pedidoss.headers['Access-Control-Allow-Origin'] = '*'
-    pedidoss.headers['Access-Control-Expose-Headers'] = 'Content-Range'
-    pedidods.headers['Content-Range'] = content_range
+    pedidos.headers['Access-Control-Allow-Origin'] = '*'
+    pedidos.headers['Access-Control-Expose-Headers'] = 'Content-Range'
+    pedidos.headers['Content-Range'] = content_range
     return pedidos
 
  
@@ -41,7 +47,7 @@ def read_one(name):
         person = PEDIDOS.get(name)
     else:
         abort(
-            404, "Person with last name {lname} not found".format(lname=lname)
+            404, "Pedido numero {name} nao encontrado".format(name=name)
         )
     return person
  
@@ -57,31 +63,33 @@ def create(pedido):
             "timestamp": get_timestamp(),
         }
         return make_response(
-            "{lname} successfully created".format(lname=lname), 201
+            "{name} Criado com Sucesso".format(name=name), 201
         )
     else:
         abort(
             406,
-            "Person with last name {lname} already exists".format(lname=lname),
+            "Person with last name {lname} already exists".format(name=name),
         )
  
  
-def update(name, pedido):
+def update(name, cliente):
     if name in PEDIDOS:
-        PEDIDOS[lname]["name"] = pedidos.get("name")
-        PEDIDOS[pedido]["timestamp"] = get_timestamp()
+        PEDIDOS[name]["name"] = cliente.get("name")
+        #PEDIDOS[quantidade]["quantidade"] = person.get("quantidade")
+        #PEDIDOS[pedido]["timestamp"] = get_timestamp()
  
-        return PEOPLE[lname]
+        return PEDIDOS[name]
     else:
         abort(
-            404, "Person with last name {lname} not found".format(lname=lname)
+            404, "Pedido nao encontrado {name} ".format(name=name)
         )
+
  
 def delete(name):
     if name in PEDIDOS:
         del PEDIDOS[name]
         return make_response(
-            "{lname} successfully deleted".format(pedido=pedido), 200
+            "{name} successfully deleted".format(pedido=pedido), 200
         )
     else:
         abort(
